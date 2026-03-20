@@ -5,14 +5,6 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Vishvamitra + Tirole Academy</title>
@@ -21,12 +13,12 @@
     <style>
         /* Nayi Color Theme: Deep Indigo, Coral aur Teal */
         :root { 
-            --primary: #312e81; /* Deep Indigo */
-            --secondary: #4f46e5; /* Soft Indigo */
-            --bg: #eef2ff; /* Very Light Indigo Base */
-            --success: #0d9488; /* Premium Teal */
-            --danger: #e11d48; /* Rose/Red */
-            --review: #f59e0b; /* Amber */
+            --primary: #312e81; 
+            --secondary: #4f46e5; 
+            --bg: #eef2ff; 
+            --success: #0d9488; 
+            --danger: #e11d48; 
+            --review: #f59e0b; 
             --card-bg: #ffffff;
         }
         
@@ -61,13 +53,11 @@
 
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 18px; border-left: 5px solid var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.05);}
         
-        /* Different Gradient for Dashboard Cards */
         .flt-card { background: linear-gradient(135deg, #fb923c, #ea580c); color: white; cursor: pointer; text-align: center; margin-bottom: 15px; border: none;}
         .sat-card { background: linear-gradient(135deg, #2dd4bf, #0d9488); color: white; cursor: pointer; text-align: center; border: none;}
         
         .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
         
-        /* Side Border design instead of bottom border */
         .sub-card { background: white; padding: 18px 10px; border-radius: 16px; text-align: center; border-left: 6px solid #ddd; cursor: pointer; font-weight: 900; box-shadow: 0 4px 12px rgba(0,0,0,0.04); transition: all 0.2s; display: flex; align-items: center; justify-content: center;}
         .sub-card:active { transform: scale(0.95); background: var(--bg); }
 
@@ -81,7 +71,6 @@
 
         .timer-bar { background: var(--primary); color: white; padding: 12px 20px; border-radius: 20px; display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 900; position: sticky; top: 0; z-index: 10; box-shadow: 0 4px 15px rgba(49, 46, 129, 0.3); font-size: 15px;}
         
-        /* Circular Palette Buttons */
         .palette-area { background: white; padding: 15px; border-radius: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 8px; max-height: 140px; overflow-y: auto; margin-bottom: 15px; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .q-num { width: 40px; height: 40px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; background: #f1f5f9; font-weight: 700; color: #475569;}
         .q-num.current { border: 3px solid var(--secondary); transform: scale(1.15); font-weight: 900; background: white; color: var(--primary);}
@@ -102,6 +91,7 @@
         .review-card.wrong { border-left-color: var(--danger); }
         .expl-box { background: #f0fdf4; padding: 12px; border-radius: 10px; margin-top: 12px; font-size: 14px; border: 1px dashed #bbf7d0; color: #166534; font-weight: 600;}
     </style>
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -187,7 +177,9 @@
         <div id="result-screen">
             <div class="card" style="text-align:center;">
                 <h2 id="final-score" style="color:var(--primary); font-size:38px; font-weight: 900; margin: 15px 0;">0 / 0</h2>
-                <button class="btn-main" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); margin-bottom:12px;" onclick="window.open('https://forms.gle/XXXXXXXXXXXXXXXXX')">📤 Submit Score</button>
+                
+                <button class="btn-main" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); margin-bottom:12px;" onclick="window.open('https://docs.google.com/forms/d/1sfa06q1CP8PEn7BAH5Rp0yQ-3FlcEHO6GexkIdg5ym0/viewform')">📤 Submit Score</button>
+                
                 <button class="btn-main" style="background: linear-gradient(135deg, #64748b, #475569);" onclick="location.reload()">🏠 Return Home</button>
             </div>
             <h3 style="margin-top: 20px; color: var(--primary); font-weight: 900;">Answer Key & Solutions</h3>
@@ -197,10 +189,10 @@
 
     <script>
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for(let registration of registrations) {
-            registration.unregister();
-          }
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/vishvamitra-academy/sw.js')
+            .then(reg => console.log('Service Worker Registered!', reg))
+            .catch(err => console.error('Service Worker Registration Failed!', err));
         });
       }
     </script>
@@ -224,14 +216,30 @@
         });
     </script>
 
-    <div style="background: var(--primary); border-top: none; padding: 12px 15px; flex-shrink: 0; z-index: 100;">
-        <div style="text-align: center; font-size: 13px; color: white; font-weight: 800; margin-bottom: 8px; letter-spacing: 0.5px;">
+    <div style="background: var(--primary); border-top: none; padding: 15px; flex-shrink: 0; z-index: 100; text-align: center;">
+        
+        <div style="font-size: 15px; color: white; font-weight: 900; margin-bottom: 4px; letter-spacing: 0.5px;">
             📢 Vishvamitra + Tirole Academy
         </div>
-        <div style="display: flex; justify-content: space-between; gap: 10px;">
-            <div style="flex: 1; text-align: center; background: rgba(255,255,255,0.1); color: white; padding: 8px 0; border-radius: 8px; font-weight: 700; font-size: 13px; border: 1px solid rgba(255,255,255,0.2);">📞 Help Desk 1</div>
-            <div style="flex: 1; text-align: center; background: rgba(255,255,255,0.1); color: white; padding: 8px 0; border-radius: 8px; font-weight: 700; font-size: 13px; border: 1px solid rgba(255,255,255,0.2);">📞 Help Desk 2</div>
+        
+        <div style="font-size: 13px; color: #cbd5e1; margin-bottom: 12px; font-weight: 700;">
+            📍 Near S.N college, Khandwa
         </div>
+        
+        <div style="display: flex; justify-content: space-between; gap: 10px;">
+            <div style="flex: 1; text-align: center; background: rgba(255,255,255,0.15); border-radius: 10px; border: 1px solid rgba(255,255,255,0.3); transition: 0.2s;">
+                <a href="tel:9754094410" style="display: block; color: white; padding: 10px 0; text-decoration: none; font-weight: 800; font-size: 14px;">
+                    📞 97540 94410
+                </a>
+            </div>
+            
+            <div style="flex: 1; text-align: center; background: #dc2626; border-radius: 10px; border: 1px solid #b91c1c; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+                <a href="https://youtube.com/@sardarsinghrajput837?si=cxaFaoFdsc0ysGBX" target="_blank" style="display: block; color: white; padding: 10px 0; text-decoration: none; font-weight: 800; font-size: 14px;">
+                    ▶️ YouTube
+                </a>
+            </div>
+        </div>
+        
     </div>
     
 </body>
