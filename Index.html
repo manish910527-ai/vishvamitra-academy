@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vishvamitra + Tirole Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <link rel="stylesheet" href="style.css?v=1.0">
+</head>
+<body>
+
+    <header class="app-header">
+        <h1>Vishvamitra + Tirole</h1>
+        <div id="userProfile" class="hidden">👤 <span id="displayStudentName"></span></div>
+    </header>
+
+    <section id="loginScreen" class="screen active">
+        <div class="card">
+            <h2>Welcome to Mock Tests</h2>
+            <p>Enter your name to start</p>
+            <input type="text" id="studentName" placeholder="Your Full Name">
+            <button onclick="loginStudent()" class="btn-primary">Start Learning</button>
+        </div>
+    </section>
+
+    <section id="dashboardScreen" class="screen hidden">
+        <div class="card">
+            <h2>Available Tests</h2>
+            <div id="testList" class="test-grid">
+                <p>Loading tests from database...</p>
+                </div>
+        </div>
+    </section>
+
+    <section id="quizScreen" class="screen hidden">
+        <div class="quiz-header">
+            <span id="timer">⏱ 00:00</span>
+            <button onclick="submitQuiz()" class="btn-danger">Submit</button>
+        </div>
+        
+        <div class="question-container card">
+            <h3 id="questionText">Question loading...</h3>
+            <div id="questionImageContainer"></div>
+            <div class="options" id="optionsContainer">
+                </div>
+        </div>
+
+        <div class="palette-container">
+            <h4>Question Palette</h4>
+            <div id="questionPalette" class="palette-grid"></div>
+        </div>
+
+        <div class="action-buttons">
+            <button onclick="markForReview()" class="btn-warning">Mark Review</button>
+            <button onclick="nextQuestion()" class="btn-primary">Next</button>
+        </div>
+    </section>
+
+    <script src="app.js?v=1.0"></script>
+</body>
+</html>
